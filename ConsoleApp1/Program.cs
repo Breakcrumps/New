@@ -14,11 +14,10 @@ player.Weapon = fireWeapon;
 
 player.Attack(enemy);
 
-Weapon poisonWeapon = new() 
-{
+Weapon poisonWeapon = new() {
   Name = "Poised raze",
   Damage = 10,
-  Effects = [new() { Damage = 3, Duration = 50, Phase = 5 }]
+  Effects = [new() { Damage = 3, Duration = 20, Phase = 5 }]
 };
 
 enemy.Weapon = poisonWeapon;

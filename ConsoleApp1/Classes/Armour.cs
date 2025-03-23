@@ -6,8 +6,7 @@ public class Armour
   public required int ArmourValue
   {
     get;
-    init 
-    {
+    init {
       if (value < 0)
         field = 0;
       else if (value > 100)
