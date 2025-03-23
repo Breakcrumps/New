@@ -1,5 +1,3 @@
-using System.ComponentModel.DataAnnotations;
-
 namespace Classes;
 
 public class DamageEffect()
