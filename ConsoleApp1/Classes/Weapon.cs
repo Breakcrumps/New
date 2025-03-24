@@ -12,7 +12,8 @@ public class Weapon
   public void Attack(Character enemy)
   {
     float damage = (1 - enemy.Armour.ArmourValue / 100) * Damage;
-    enemy.Health -= damage;
+    int roundedDamage = (int)Math.Round(damage);
+    enemy.Health -= roundedDamage;
 
     Reporter.ReportAttack(damage, enemy);
 

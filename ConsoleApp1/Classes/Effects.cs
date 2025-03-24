@@ -6,7 +6,7 @@ public class DamageEffect
 {
   public required float Duration { get; init => field = (value >= 0) ? value : 0; }
   public required float Phase { get; init => field = (value > 0) ? value : Duration; }
-  public required float Damage { get; init; }
+  public required int Damage { get; init; }
 
   public async Task DealDamage(Character subject)
   {

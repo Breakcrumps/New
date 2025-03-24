@@ -1,18 +1,18 @@
 namespace Classes;
 
-public class Armour
+public record Stats
 {
-  public required string Name { get; init; } = "";
-  public required int ArmourValue
+  public required int Health
   {
     get;
-    init {
+    set {
       field =
         value <= 0
-        ? 1
+        ? 0
         : value >= 100
         ? 100
         : value;
     }
   }
+  public required float Agility { get; set; } = 1;
 }

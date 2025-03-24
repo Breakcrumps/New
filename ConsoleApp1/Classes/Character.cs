@@ -1,9 +1,22 @@
 namespace Classes;
 
-public class Character
+public class Character(Stats Stats)
 {
   public required string Name { get; set; } = "";
-  public required float Health { get; set => field = (value >= 0) ? value : 0; }
+  public int Health
+  {
+    get;
+    set {
+      field =
+        value <= 0
+        ? 0
+        : value >= Stats.Health
+        ? Stats.Health
+        : value;
+    }
+  } = Stats.Health;
+
+  public required Stats Stats { get; set; }
 
   public Weapon Weapon { get; set; } = new() { Name = "Bare hands", Damage = 3 };
   public Armour Armour { get; set; } = new() { Name = "Ragged cloth", ArmourValue = 2 };
