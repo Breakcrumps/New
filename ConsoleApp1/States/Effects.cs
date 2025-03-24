@@ -1,6 +1,7 @@
 using Static;
+using Char;
 
-namespace Classes;
+namespace States;
 
 public class DamageEffect
 {

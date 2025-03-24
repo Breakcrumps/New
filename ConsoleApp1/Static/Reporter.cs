@@ -1,4 +1,4 @@
-using Classes;
+using Char;
 
 namespace Static;
 

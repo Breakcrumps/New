@@ -1,4 +1,4 @@
-namespace Classes;
+namespace Char;
 
 public record Stats
 {

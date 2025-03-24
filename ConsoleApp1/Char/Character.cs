@@ -1,4 +1,7 @@
-namespace Classes;
+using Equip;
+using Managers;
+
+namespace Char;
 
 public class Character
 {
@@ -16,7 +19,7 @@ public class Character
     }
   }
 
-  public required Stats Stats { get; set; }
+  public Stats Stats { get; set; }
 
   public Weapon Weapon { get; set; } = new() { Name = "Bare hands", Damage = 3 };
   public Armour Armour { get; set; } = new() { Name = "Ragged cloth", ArmourValue = 2 };
@@ -29,14 +32,6 @@ public class Character
   {
     Stats = stats;
     Health = Stats.Health;
-    ActionManager = new();
-  }
-}
-
-public class PlayableCharacter : Character
-{
-  public PlayableCharacter(Stats stats) : base(stats)
-  {
-    ActionManager = new(new PlayableTurnManager());
+    ActionManager = new(this);
   }
 }

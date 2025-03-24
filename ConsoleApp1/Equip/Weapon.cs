@@ -1,6 +1,8 @@
 using Static;
+using States;
+using Char;
 
-namespace Classes;
+namespace Equip;
 
 public class Weapon
 {

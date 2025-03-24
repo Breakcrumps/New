@@ -1,6 +1,8 @@
-namespace Classes;
+using Char;
 
-public class TurnManager
+namespace Managers;
+
+public class BattleManager
 {
   public List<Character> ActiveCharacters
   {

@@ -1,4 +1,4 @@
-namespace Classes;
+namespace Equip;
 
 public class Armour
 {
