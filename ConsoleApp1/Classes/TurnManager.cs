@@ -5,6 +5,6 @@ public class TurnManager
   public List<Character> ActiveCharacters
   {
     get;
-    set => field = [.. value.OrderBy(node => node.Stats.Agility)];
+    set => field = [.. value.OrderByDescending(node => node.Stats.Agility)];
   } = [];
 }
