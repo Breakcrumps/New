@@ -4,8 +4,9 @@ namespace Managers;
 
 public struct NPCTurnManager : ITurnManager
 {
-  public async Task ExecuteTurn(Character character)
+  public async Task ExecuteTurn(Character character, List<Character> activeCharacters)
   {
-    await Task.Delay(1000);
+    Character nextTarget = activeCharacters.MinBy(c => c.Health);
+    await Task.Run(() => character.Attack(nextTarget));
   }
 }

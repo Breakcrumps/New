@@ -1,24 +1,24 @@
 using Char;
+using States;
 
 namespace Managers;
 
 public class ActionManager
 {
-  private readonly ITurnManager _turnManager = new NPCTurnManager();
+  private readonly ITurnManager _turnManager;
   private readonly Character _character;
 
-  public async Task ExecuteTurn()
+  public async Task ExecuteTurn(List<Character> ActiveCharacters)
   {
-    await _turnManager.ExecuteTurn(_character);
+    await _turnManager.ExecuteTurn(_character, ActiveCharacters);
   }
 
   public ActionManager(Character character)
   {
     _character = character;
-  }
-  public ActionManager(Character character, ITurnManager turnManager)
-  {
-    _character = character;
-    _turnManager = turnManager;
+    if (character.Team.Equals(Team.BadGuys))
+      _turnManager = new NPCTurnManager();
+    else
+      _turnManager = new PlayableTurnManager();
   }
 }

@@ -4,5 +4,5 @@ namespace Managers;
 
 public interface ITurnManager
 {
-  public Task ExecuteTurn(Character character);
+  public Task ExecuteTurn(Character character, List<Character> activeCharacters);
 }

@@ -1,11 +1,13 @@
 using Equip;
 using Managers;
+using States;
 
 namespace Char;
 
 public class Character
 {
   public required string Name { get; set; } = "";
+  public required Team Team { get; set; }
   public int Health
   {
     get;

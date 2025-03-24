@@ -1,4 +1,5 @@
 using Char;
+using States;
 
 namespace Static;
 
@@ -19,5 +20,9 @@ public static class Reporter
   public static void ReportRecovery(Character subject)
   {
     WriteLine($"\n{subject.Name} recovered from negatve effect!");
+  }
+  public static void ReportResults(Team winner)
+  {
+    WriteLine($"\n{winner.Name} won!");
   }
 }
