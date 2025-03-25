@@ -30,10 +30,26 @@ public class Character
   
   public void Attack(Character enemy) => Weapon.Attack(enemy);
 
+  /// <summary>
+  /// Construct an NPC.
+  /// </summary>
+  /// <param name="stats"></param>
   public Character(Stats stats)
   {
     Stats = stats;
     Health = Stats.Health;
     ActionManager = new(this);
+  }
+
+  /// <summary>
+  /// Construct a Character of given type.
+  /// </summary>
+  /// <param name="stats"></param>
+  /// <param name="turnManager"></param>
+  public Character(Stats stats, ITurnManager turnManager)
+  {
+    Stats = stats;
+    Health = Stats.Health;
+    ActionManager = new(this, turnManager);
   }
 }

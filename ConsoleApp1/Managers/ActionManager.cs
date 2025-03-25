@@ -1,5 +1,4 @@
 using Char;
-using States;
 
 namespace Managers;
 
@@ -16,9 +15,11 @@ public class ActionManager
   public ActionManager(Character character)
   {
     _character = character;
-    if (character.Team.Equals(Team.BadGuys))
-      _turnManager = new NPCTurnManager();
-    else
-      _turnManager = new PlayableTurnManager();
+    _turnManager = new NPCTurnManager();
+  }
+  public ActionManager(Character character, ITurnManager turnManager)
+  {
+    _character = character;
+    _turnManager = turnManager;
   }
 }

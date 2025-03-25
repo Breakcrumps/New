@@ -15,6 +15,9 @@ public class BattleManager
   public async Task CommenceBattle(params List<Character> combatants)
   {
     ActiveCharacters = combatants;
+
+    DebugReporter.ReportBattleStart(ActiveCharacters);
+
     await StartPhase();
   }
   
@@ -36,6 +39,8 @@ public class BattleManager
       RemoveDead();
 
       if (BattleIsOver())
+        WriteLine($"\nFunction BattleIsOver() shot!");
+        WriteLine($"\n\tThe number of enemies is {CountBadGuys()},\n\tAnd the number of heroes is {CountGoodGuys()}");
         return true;
     }
 
@@ -68,10 +73,10 @@ public class BattleManager
   
   private int CountGoodGuys()
   {
-    return ActiveCharacters.Count(c => c.Team.Equals(Team.GoodGuys));
+    return ActiveCharacters.Count(c => c.Team == Team.GoodGuys);
   }
   private int CountBadGuys()
   {
-    return ActiveCharacters.Count(c => c.Team.Equals(Team.BadGuys));
+    return ActiveCharacters.Count(c => c.Team == Team.BadGuys);
   }
 }
