@@ -6,12 +6,13 @@ public record Stats
   {
     get;
     set {
-      field =
+      field = (
         value <= 0
         ? 0
         : value >= 100
         ? 100
-        : value;
+        : value
+      );
     }
   }
   public required float Agility { get; set; } = 1;

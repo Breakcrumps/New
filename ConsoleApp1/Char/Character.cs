@@ -49,10 +49,7 @@ public class Character : IEquatable<Character>
     return !left!.Equals(right);
   }
 
-  public override int GetHashCode()
-  {
-    return Name.GetHashCode();
-  }
+  public override int GetHashCode() => Name.GetHashCode();
 
   /// <summary>
   /// Construct an NPC.

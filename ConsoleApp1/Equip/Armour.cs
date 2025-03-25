@@ -7,12 +7,13 @@ public class Armour
   {
     get;
     init {
-      field =
+      field = (
         value <= 0
         ? 1
         : value >= 100
         ? 100
-        : value;
+        : value
+      );
     }
   }
 }

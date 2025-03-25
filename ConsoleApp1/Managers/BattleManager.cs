@@ -30,7 +30,9 @@ public class BattleManager
     bool done = false;
 
     while (!done)
+    {
       done = await ExecutePhase();
+    }
   }
   private async Task<bool> ExecutePhase()
   {
@@ -41,9 +43,7 @@ public class BattleManager
       RemoveDead();
 
       if (BattleIsOver)
-      {
         return true;
-      }
     }
 
     return false;
@@ -57,7 +57,13 @@ public class BattleManager
 
   private void RemoveDead()
   {
-    ActiveCharacters.RemoveAll(c => c.Health == 0);
+    foreach (var character in ActiveCharacters)
+    {
+      if (character.Health == 0)
+      {
+        Reporter.ReportTermination(character);
+      }
+    }
   }
   private bool BattleIsOver => GoodGuysCount == 0 || BadGuysCount == 0;
   

@@ -30,8 +30,5 @@ public class Team : IEquatable<Team>
     return !left!.Equals(right);
   }
 
-  public override int GetHashCode()
-  {
-    return Name.GetHashCode();
-  }
+  public override int GetHashCode() => Name.GetHashCode();
 }
