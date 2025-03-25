@@ -15,7 +15,7 @@ public readonly struct PlayableTurnManager : ITurnManager
     
       Reporter.PresentTurnOptions();
 
-      string directive = await GetNextDirective();
+      string directive = GetNextDirective();
 
       if (directive == "Attack")
       {
@@ -23,49 +23,40 @@ public readonly struct PlayableTurnManager : ITurnManager
       }
     }
   }
-  private async Task<string> GetNextDirective()
+  private string GetNextDirective()
   {
-    string? input = await Task.Run(() => Console.ReadLine()!.Trim());
+    string? input = Reporter.Read();
 
-    while (!Reporter.PlayerTurnOptions.Any(kvp => kvp.Value.Contains(input)))
+    while (!InputIsDirective(input))
     {
       Reporter.Clear();
-      Reporter.Report("Come again?");
+      Reporter.ComeAgain();
       Reporter.PresentTurnOptions();
-      input = await Task.Run(() => Console.ReadLine()!.Trim());
+      input = Reporter.Read();
     }
 
-    string directive = Reporter.PlayerTurnOptions.FirstOrDefault(kvp => kvp.Value.Contains(input)).Key;
+    string directive = GetDirective(input);
 
     return directive!;
   }
 
   private async Task<bool> Attack(Character caller, List<Character> activeCharacters)
   {
-    Reporter.Clear();
-    Reporter.Report("Whom to attack?");
-    Reporter.ReportActiveCharacters(caller, activeCharacters);
-    Reporter.Report("\tPlease enter the enemy's number or 0 to return.");
+    Reporter.PresentAttackOptions(caller, activeCharacters);
 
-    string input = await Task.Run(() => Console.ReadLine()!.Trim());
-    int enemyNumber;
+    string input = Reporter.Read();
+    int enemyIndex;
 
-    while (
-      !int.TryParse(input, out enemyNumber)
-      || (enemyNumber - 1) >= activeCharacters.Count
-      || (enemyNumber - 1) < -1
-    )
+    while (!ValidAttackInput(input, out enemyIndex, activeCharacters))
     {
-      Reporter.Report("Come again?");
-      input = await Task.Run(() => Console.ReadLine()!.Trim());
+      Reporter.ComeAgain();
+      input = Reporter.Read();
     }
 
-    enemyNumber--;
-
-    if (enemyNumber == -1)
+    if (enemyIndex == -1)
       return false;
 
-    Character target = activeCharacters[enemyNumber];
+    Character target = activeCharacters[enemyIndex];
 
     if (target == caller)
     {
@@ -80,5 +71,20 @@ public readonly struct PlayableTurnManager : ITurnManager
 
     await caller.Attack(target);
     return true;
+  }
+
+  private bool InputIsDirective(string input) => Reporter.PlayerTurnOptions.Any(kvp => kvp.Value.Contains(input));
+  private string GetDirective(string input) => Reporter.PlayerTurnOptions.FirstOrDefault(kvp => kvp.Value.Contains(input)).Key;
+  private bool ValidAttackInput(string input, out int enemyNumber, List<Character> activeCharacters)
+  {
+    bool result =  (
+      int.TryParse(input, out int index)
+      && (index - 1) < activeCharacters.Count
+      && (index - 1) >= -1
+    );
+
+    enemyNumber = index - 1;
+
+    return result;
   }
 }

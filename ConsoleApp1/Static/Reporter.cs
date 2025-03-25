@@ -53,6 +53,17 @@ public static class Reporter
     Report($"\t2 or Shield: Shield against incoming attacks for a turn.");
     Report($"\t3 or None or Wait: Do nothing for the turn.");
   }
+  public static void ComeAgain()
+  {
+    Report("Come again?");
+  }
+  public static void PresentAttackOptions(Character caller, List<Character> activeCharacters)
+  {
+    Clear();
+    Report("Whom to attack?");
+    ReportActiveCharacters(caller, activeCharacters);
+    Report("\tPlease enter the enemy's number or 0 to return.");
+  }
 
   public static void Report(string message)
   {
@@ -62,4 +73,5 @@ public static class Reporter
   {
     Console.Clear();
   }
+  public static string Read() => Console.ReadLine()!.Trim();
 }

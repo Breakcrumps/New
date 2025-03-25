@@ -42,23 +42,15 @@ public class BattleManager
 
       if (BattleIsOver)
       {
-        Reporter.Report($"\nThe battle is over!");
-        Reporter.Report($"\n\tThe number of enemies is {BadGuysCount},\n\tAnd the number of heroes is {GoodGuysCount}");
         return true;
       }
     }
 
     return false;
   }
-  public void EndBattle()
+  private void EndBattle()
   {
-    Team winner = (
-      GoodGuysCount > 0
-      ? Team.GoodGuys
-      : Team.BadGuys
-    );
-
-    Reporter.ReportResults(winner);
+    Reporter.ReportResults(Winner);
 
     ActiveCharacters = [];
   }
@@ -71,4 +63,5 @@ public class BattleManager
   
   private int GoodGuysCount => ActiveCharacters.Count(c => c.Team == Team.GoodGuys);
   private int BadGuysCount => ActiveCharacters.Count(c => c.Team == Team.BadGuys);
+  private Team Winner => GoodGuysCount > 0 ? Team.GoodGuys : Team.BadGuys;
 }
