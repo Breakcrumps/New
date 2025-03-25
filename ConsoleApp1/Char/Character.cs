@@ -29,7 +29,7 @@ public class Character : IEquatable<Character>
 
   public ActionManager ActionManager { get; init; }
   
-  public void Attack(Character enemy) => Weapon.Attack(enemy);
+  public async Task Attack(Character enemy) => await Weapon.Attack(enemy);
 
   public override bool Equals(object? obj)
   {

@@ -14,9 +14,11 @@ public class BattleManager
 
   public async Task CommenceBattle(params List<Character> combatants)
   {
+    Reporter.Clear();
+
     ActiveCharacters = combatants;
 
-    DebugReporter.ReportBattleStart(ActiveCharacters);
+    await Reporter.ReportBattleStart();
 
     await ExecuteBattle();
 

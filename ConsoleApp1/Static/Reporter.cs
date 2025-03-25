@@ -12,9 +12,15 @@ public static class Reporter
     ["Wait"] = ["Wait", "None", "3"]
   };
 
-  public static void ReportAttack(float damage, Character subject)
+  public static async Task ReportAttack(float damage, Character subject)
   {
     Report($"{subject.Name} was hit for {damage}HP, {subject.Health}HP left");
+    await Task.Delay(1_000);
+  }
+  public static async Task ReportBattleStart()
+  {
+    Report($"The battle begins!");
+    await Task.Delay(1_000);
   }
   public static void ReportTermination(Character subject)
   {
@@ -37,19 +43,23 @@ public static class Reporter
     for (int i = 0; i < activeCharacters.Count; i++)
     {
       Character activeCharacter = activeCharacters[i];
-      Report($"{i + 1}. {activeCharacter.Name}\t{activeCharacter.Health}HP\t{activeCharacter.Team.Name}{(activeCharacter == caller ? "\t<-- [YOU]" : "")}");
+      Report($"\t{i + 1}. {activeCharacter.Name}\t{activeCharacter.Health}HP\t{activeCharacter.Team.Name}{(activeCharacter == caller ? "\t<-- [YOU]" : "")}");
     }
   }
   public static void PresentTurnOptions()
   {
     Report($"What will you do?");
-    Report($"1 or Attack: Attack an enemy.");
-    Report($"2 or Shield: Shield against incoming attacks for a turn.");
-    Report($"3 or None or Wait: Do nothing for the turn.");
+    Report($"\t1 or Attack: Attack an enemy.");
+    Report($"\t2 or Shield: Shield against incoming attacks for a turn.");
+    Report($"\t3 or None or Wait: Do nothing for the turn.");
   }
 
   public static void Report(string message)
   {
-    WriteLine($"\n{message}");
+    Console.WriteLine($"\n{message}");
+  }
+  public static void Clear()
+  {
+    Console.Clear();
   }
 }

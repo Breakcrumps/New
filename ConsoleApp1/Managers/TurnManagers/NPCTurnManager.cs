@@ -11,6 +11,6 @@ public readonly struct NPCTurnManager : ITurnManager
         .Where(c => c.Name != character.Name)
         .MinBy(c => c.Health)!
     );
-    await Task.Run(() => character.Attack(nextTarget));
+    await character.Attack(nextTarget);
   }
 }

@@ -1,6 +1,7 @@
 using Static;
 using States;
 using Char;
+using System.Threading.Tasks;
 
 namespace Equip;
 
@@ -11,13 +12,13 @@ public class Weapon
 
   public List<DamageEffect> Effects { get; init; } = [];
 
-  public void Attack(Character enemy)
+  public async Task Attack(Character enemy)
   {
     float damage = (1 - enemy.Armour.ArmourValue / 100) * Damage;
     int roundedDamage = (int)Math.Round(damage);
     enemy.Health -= roundedDamage;
 
-    Reporter.ReportAttack(damage, enemy);
+    await Reporter.ReportAttack(damage, enemy);
 
     if (enemy.Health <= 0)
       Reporter.ReportTermination(enemy);
