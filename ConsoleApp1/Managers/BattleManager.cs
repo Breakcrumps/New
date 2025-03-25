@@ -57,7 +57,12 @@ public class BattleManager
 
   private void RemoveDead()
   {
-    foreach (var character in ActiveCharacters)
+    ReportTerminations();
+    ActiveCharacters.RemoveAll(c => c.Health == 0);
+  }
+  private void ReportTerminations()
+  {
+    foreach (Character character in ActiveCharacters)
     {
       if (character.Health == 0)
       {
@@ -65,6 +70,7 @@ public class BattleManager
       }
     }
   }
+
   private bool BattleIsOver => GoodGuysCount == 0 || BadGuysCount == 0;
   
   private int GoodGuysCount => ActiveCharacters.Count(c => c.Team == Team.GoodGuys);
