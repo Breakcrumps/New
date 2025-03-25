@@ -4,20 +4,21 @@ using States;
 
 namespace Char;
 
-public class Character
+public class Character : IEquatable<Character>
 {
-  public required string Name { get; set; } = "";
+  public required string Name { get; set; } = "NoName";
   public required Team Team { get; set; }
   public int Health
   {
     get;
     set {
-      field =
+      field = (
         value <= 0
         ? 0
         : value >= Stats.Health
         ? Stats.Health
-        : value;
+        : value
+      );
     }
   }
 
@@ -30,6 +31,29 @@ public class Character
   
   public void Attack(Character enemy) => Weapon.Attack(enemy);
 
+  public override bool Equals(object? obj)
+  {
+    return Equals(obj as Character);
+  }
+  public bool Equals(Character? other)
+  {
+    return Name == other!.Name;
+  }
+
+  public static bool operator ==(Character? left, Character? right)
+  {
+    return left!.Equals(right);
+  }
+  public static bool operator !=(Character? left, Character? right)
+  {
+    return !left!.Equals(right);
+  }
+
+  public override int GetHashCode()
+  {
+    return Name.GetHashCode();
+  }
+
   /// <summary>
   /// Construct an NPC.
   /// </summary>
@@ -40,16 +64,18 @@ public class Character
     Health = Stats.Health;
     ActionManager = new(this);
   }
+}
 
+public class Character<TurnManager> : Character
+  where TurnManager : ITurnManager, new()
+{
   /// <summary>
-  /// Construct a Character of given type.
+  /// Construct a Character the type of controls given as a generic implementing ITurnManager.
   /// </summary>
   /// <param name="stats"></param>
   /// <param name="turnManager"></param>
-  public Character(Stats stats, ITurnManager turnManager)
+  public Character(Stats stats) : base(stats)
   {
-    Stats = stats;
-    Health = Stats.Health;
-    ActionManager = new(this, turnManager);
+    ActionManager = new(this, new TurnManager());
   }
 }

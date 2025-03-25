@@ -2,7 +2,7 @@
 using Managers;
 using States;
 
-Character player = new(new Stats() { Health = 100, Agility = 5 })
+Character<PlayableTurnManager> player = new(new Stats() { Health = 100, Agility = 5 })
 {
   Name = "Hero",
   Team = Team.GoodGuys

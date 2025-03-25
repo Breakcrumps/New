@@ -4,22 +4,22 @@ namespace Managers;
 
 public class ActionManager
 {
-  private readonly ITurnManager _turnManager;
   private readonly Character _character;
+  public ITurnManager TurnManager { get; set; }
 
   public async Task ExecuteTurn(List<Character> ActiveCharacters)
   {
-    await _turnManager.ExecuteTurn(_character, ActiveCharacters);
+    await TurnManager.ExecuteTurn(_character, ActiveCharacters);
   }
 
   public ActionManager(Character character)
   {
     _character = character;
-    _turnManager = new NPCTurnManager();
+    TurnManager = new NPCTurnManager();
   }
   public ActionManager(Character character, ITurnManager turnManager)
   {
     _character = character;
-    _turnManager = turnManager;
+    TurnManager = turnManager;
   }
 }

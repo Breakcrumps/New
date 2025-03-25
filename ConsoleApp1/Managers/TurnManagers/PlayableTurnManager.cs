@@ -1,16 +1,16 @@
 using Char;
+using Static;
 
 namespace Managers;
 
-public struct PlayableTurnManager : ITurnManager
+public readonly struct PlayableTurnManager : ITurnManager
 {
   public async Task ExecuteTurn(Character character, List<Character> activeCharacters)
   {
-    foreach (Character activeCharacter in activeCharacters)
-    {
-      WriteLine($"{activeCharacter.Health}");
-    }
+    DebugReporter.ReportPlayerTurnStart();
+    
+    Reporter.ReportActiveCharacters(character, activeCharacters);
 
-    await Task.Delay(1_000);
+    await Task.Run(ReadLine);
   }
 }
