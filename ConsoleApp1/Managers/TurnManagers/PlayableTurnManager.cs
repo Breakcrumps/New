@@ -7,6 +7,8 @@ public readonly struct PlayableTurnManager : ITurnManager
 {
   public async Task ExecuteTurn(Character caller, List<Character> activeCharacters)
   {
+    UpdateStates(caller);
+
     bool done = false;
 
     while (!done)
@@ -20,6 +22,15 @@ public readonly struct PlayableTurnManager : ITurnManager
       if (directive == "Attack")
       {
         done = await Attack(caller, activeCharacters);
+      }
+      if (directive == "Shield")
+      {
+        caller.ActionManager.Shielding = true;
+        done = true;
+      }
+      if (directive == "Wait")
+      {
+        done = true;
       }
     }
   }
@@ -60,11 +71,13 @@ public readonly struct PlayableTurnManager : ITurnManager
 
     if (target == caller)
     {
+      Reporter.Clear();
       Reporter.Report("Can't hit yourself!");
       return false;
     }
     if (target.Team == caller.Team)
     {
+      Reporter.Clear();
       Reporter.Report("Please don't try to hit your friends.");
       return false;
     }
@@ -86,5 +99,9 @@ public readonly struct PlayableTurnManager : ITurnManager
     enemyNumber = index - 1;
 
     return validAttackInput;
+  }
+  private void UpdateStates(Character caller)
+  {
+    caller.ActionManager.Shielding = false;
   }
 }

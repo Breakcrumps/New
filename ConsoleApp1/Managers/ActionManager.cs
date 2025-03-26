@@ -6,6 +6,7 @@ public class ActionManager
 {
   private readonly Character _character;
   public ITurnManager TurnManager { get; set; }
+  public bool Shielding { get; set; }
 
   public async Task ExecuteTurn(List<Character> ActiveCharacters)
   {

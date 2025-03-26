@@ -31,8 +31,12 @@ public class Weapon
 
   private int ComputeDamage(Character enemy)
   {
-    float damage = (1 - enemy.Armour.ArmourValue / 100) * Damage;
+    float armourMultiplicator = 1 - (enemy.Armour.ArmourValue / 100);
+    float blockingMultiplicator = enemy.ActionManager.Shielding ? .5f : 1;
+    
+    float damage =  armourMultiplicator * blockingMultiplicator * Damage;
     int damageRounded = (int)Math.Round(damage);
+    
     return damageRounded;
   }
   private void DamageEnemy(Character enemy, int damage)

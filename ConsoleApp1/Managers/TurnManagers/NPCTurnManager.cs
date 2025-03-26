@@ -8,7 +8,10 @@ public readonly struct NPCTurnManager : ITurnManager
   {
     Character nextTarget = (
       activeCharacters
-        .Where(c => c.Name != character.Name)
+        .Where(
+          c => c.Name != character.Name
+          && c.Team != character.Team
+        )
         .MinBy(c => c.Health)!
     );
     await character.Attack(nextTarget);
