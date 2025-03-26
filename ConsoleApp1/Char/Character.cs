@@ -1,6 +1,7 @@
 using Equip;
 using Managers;
 using States;
+using Static;
 
 namespace Char;
 
@@ -11,15 +12,7 @@ public class Character : IEquatable<Character>
   public int Health
   {
     get;
-    set {
-      field = (
-        value <= 0
-        ? 0
-        : value >= Stats.Health
-        ? Stats.Health
-        : value
-      );
-    }
+    set => field = RangeTool.LimitValueFrom0To(value, Stats.Health);
   }
 
   public Stats Stats { get; set; }
@@ -29,7 +22,7 @@ public class Character : IEquatable<Character>
 
   public ActionManager ActionManager { get; init; }
   
-  public async Task Attack(Character enemy) => await Weapon.Attack(enemy);
+  public async Task Attack(Character enemy) => await Weapon.Attack(this, enemy);
 
   public override bool Equals(object? obj)
   {

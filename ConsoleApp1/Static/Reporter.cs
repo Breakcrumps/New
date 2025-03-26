@@ -12,9 +12,9 @@ public static class Reporter
     ["Wait"] = ["Wait", "None", "3"]
   };
 
-  public static async Task ReportAttack(float damage, Character subject)
+  public static async Task ReportAttack(float damage, Character attacker, Character subject)
   {
-    Report($"{subject.Name} was hit for {damage}HP, {subject.Health}HP left");
+    Report($"{subject.Name} was hit:\n--> For: {damage}HP\n--> By: {attacker.Name}\n--> Left: {subject.Health}HP");
     await Task.Delay(1_000);
   }
   public static async Task ReportBattleStart()
@@ -61,8 +61,9 @@ public static class Reporter
   {
     Clear();
     Report("Whom to attack?");
+    Report("\t0. Return to action choice.");
     ReportActiveCharacters(caller, activeCharacters);
-    Report("\tPlease enter the enemy's number or 0 to return.");
+    Report("(Please enter the enemy's number or 0 to return.)");
   }
 
   public static void Report(string message)

@@ -13,6 +13,8 @@ public readonly struct PlayableTurnManager : ITurnManager
 
     while (!done)
     {
+      Reporter.Report("Characters on the battlefield:");
+      
       Reporter.ReportActiveCharacters(caller, activeCharacters);
     
       Reporter.PresentTurnOptions();
@@ -25,11 +27,13 @@ public readonly struct PlayableTurnManager : ITurnManager
       }
       if (directive == "Shield")
       {
+        Reporter.Clear();
         caller.ActionManager.Shielding = true;
         done = true;
       }
       if (directive == "Wait")
       {
+        Reporter.Clear();
         done = true;
       }
     }
@@ -58,14 +62,17 @@ public readonly struct PlayableTurnManager : ITurnManager
     string input = Reporter.Read();
     int enemyIndex;
 
-    while (!ValidAttackInput(input, out enemyIndex, activeCharacters))
+    while (!RangeTool.ValidAttackInput(input, activeCharacters, out enemyIndex))
     {
       Reporter.ComeAgain();
       input = Reporter.Read();
     }
 
     if (enemyIndex == -1)
+    {
+      Reporter.Clear();
       return false;
+    }
 
     Character target = activeCharacters[enemyIndex];
 
@@ -82,24 +89,14 @@ public readonly struct PlayableTurnManager : ITurnManager
       return false;
     }
 
+    Reporter.Clear();
     await caller.Attack(target);
     return true;
   }
 
   private bool InputIsDirective(string input) => Reporter.PlayerTurnOptions.Any(kvp => kvp.Value.Contains(input));
   private string GetDirective(string input) => Reporter.PlayerTurnOptions.FirstOrDefault(kvp => kvp.Value.Contains(input)).Key;
-  private bool ValidAttackInput(string input, out int enemyNumber, List<Character> activeCharacters)
-  {
-    bool validAttackInput = (
-      int.TryParse(input, out int index)
-      && (index - 1) < activeCharacters.Count
-      && (index - 1) >= -1
-    );
 
-    enemyNumber = index - 1;
-
-    return validAttackInput;
-  }
   private void UpdateStates(Character caller)
   {
     caller.ActionManager.Shielding = false;

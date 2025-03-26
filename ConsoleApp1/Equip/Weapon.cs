@@ -11,22 +11,23 @@ public class Weapon
 
   public List<DamageEffect> Effects { get; init; } = [];
 
-  public async Task Attack(Character enemy)
+  public async Task Attack(Character attacker, Character subject)
   {
-    int damage = ComputeDamage(enemy);
-    DamageEnemy(enemy, damage);
+    int damage = ComputeDamage(subject);
+    DamageSubject(subject, damage);
 
-    await Reporter.ReportAttack(damage, enemy);
+    await Reporter.ReportAttack(damage, attacker, subject);
     
-    ApplyDamageEffects(enemy);
+    ApplyDamageEffects(subject);
   }
   
+  // Fucked up shit, to be deleted / rewritten.
   private void ApplyDamageEffects(Character enemy)
   {
-    foreach (DamageEffect effect in Effects)
-    {
-      Task.Run(() => effect.DealDamage(enemy));
-    }
+    // foreach (DamageEffect effect in Effects)
+    // {
+    //   Task.Run(() => effect.DealDamage(enemy));
+    // }
   }
 
   private int ComputeDamage(Character enemy)
@@ -39,8 +40,8 @@ public class Weapon
     
     return damageRounded;
   }
-  private void DamageEnemy(Character enemy, int damage)
+  private void DamageSubject(Character subject, int damage)
   {
-    enemy.Health -= damage;
+    subject.Health -= damage;
   }
 }

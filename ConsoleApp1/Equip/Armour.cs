@@ -1,3 +1,5 @@
+using Static;
+
 namespace Equip;
 
 public class Armour
@@ -6,14 +8,6 @@ public class Armour
   public required int ArmourValue
   {
     get;
-    init {
-      field = (
-        value <= 0
-        ? 1
-        : value >= 100
-        ? 100
-        : value
-      );
-    }
+    init => field = RangeTool.LimitFrom0To100(value);
   }
 }

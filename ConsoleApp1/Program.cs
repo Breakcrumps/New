@@ -16,7 +16,7 @@ Character<PlayableTurnManager> bestFriend = new(new Stats() { Health = 100, Agil
 };
 Character podsos = new(new Stats() { Health = 100, Agility = 3 })
 {
-  Name = "Ram",
+  Name = "RAM ROM",
   Team = Team.GoodGuys,
   Weapon = new() { Name = "", Damage = 6 }
 };
