@@ -77,7 +77,7 @@ public readonly struct PlayableTurnManager : ITurnManager
   private string GetDirective(string input) => Reporter.PlayerTurnOptions.FirstOrDefault(kvp => kvp.Value.Contains(input)).Key;
   private bool ValidAttackInput(string input, out int enemyNumber, List<Character> activeCharacters)
   {
-    bool result =  (
+    bool validAttackInput = (
       int.TryParse(input, out int index)
       && (index - 1) < activeCharacters.Count
       && (index - 1) >= -1
@@ -85,6 +85,6 @@ public readonly struct PlayableTurnManager : ITurnManager
 
     enemyNumber = index - 1;
 
-    return result;
+    return validAttackInput;
   }
 }
