@@ -72,6 +72,14 @@ public static class RangeTool
       : value
     );
   }
+  public static float LimitFrom1(float value)
+  {
+    return (
+      value <= 1
+      ? 1
+      : value
+    );
+  }
 
   public static bool ValidAttackInput(string input, List<Character> activeCharacters, out int enemyNumber)
   {

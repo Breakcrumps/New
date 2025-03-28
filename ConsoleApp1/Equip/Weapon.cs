@@ -32,10 +32,12 @@ public class Weapon
 
   private int ComputeDamage(Character enemy)
   {
-    float armourMultiplicator = 1 - (enemy.Armour.ArmourValue / 100);
-    float blockingMultiplicator = enemy.ActionManager.Shielding ? .5f : 1;
-    
-    float damage =  armourMultiplicator * blockingMultiplicator * Damage;
+    float damage =  (
+      Damage
+      * ArmourMultiplicator(enemy)
+      * BlockingMultiplicator(enemy)
+      * EnduranceMultiplier(enemy)
+    );
     int damageRounded = (int)Math.Round(damage);
     
     return damageRounded;
@@ -44,4 +46,8 @@ public class Weapon
   {
     subject.Health -= damage;
   }
+
+  private float ArmourMultiplicator(Character subject) => 1 - (subject.Armour.ArmourValue / 100);
+  private float BlockingMultiplicator(Character subject) => subject.ActionManager.Shielding ? .5f : 1;
+  private float EnduranceMultiplier(Character subject) => 1f;
 }

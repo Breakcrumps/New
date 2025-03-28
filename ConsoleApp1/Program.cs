@@ -1,31 +1,31 @@
 ﻿using Char;
+using Equip;
 using Managers;
 using States;
 
-Character<PlayableTurnManager> player = new(new Stats() { Health = 100, Agility = 5 })
+Character<PlayableTurnManager> player = new(new Stats(10, 12, 1_000, 10, 5))
 {
-  Name = "Ky COCK",
+  Name = "Ass",
   Team = Team.GoodGuys,
-  Weapon = new() { Name = "", Damage = 5 }
+  BaseHealth = 10,
+  BaseDefence = 10
 };
-Character<PlayableTurnManager> bestFriend = new(new Stats() { Health = 100, Agility = 6 })
+Character friend = new(new Stats(10, 12, 1, 10, 5))
 {
-  Name = "Oleg Poganec",
+  Name = "Friend",
   Team = Team.GoodGuys,
-  Weapon = new() { Name = "", Damage = 3 }
+  BaseHealth = 10,
+  BaseDefence = 10
 };
-Character podsos = new(new Stats() { Health = 100, Agility = 3 })
+Character enemy = new(new Stats(10, 12, 100, 10, 5))
 {
-  Name = "RAM ROM",
-  Team = Team.GoodGuys,
-  Weapon = new() { Name = "", Damage = 6 }
-};
-Character enemy = new(new Stats() { Health = 50, Agility = 1 })
-{
-  Name = "ASSka",
-  Team = Team.BadGuys
+  Name = "Arse",
+  Team = Team.BadGuys,
+  BaseHealth = 10,
+  BaseDefence = 10,
+  Weapon = Weapons.VenomousHunch()
 };
 
 BattleManager battleManager = new();
 
-await battleManager.CommenceBattle(player, bestFriend, podsos, enemy);
+await battleManager.CommenceBattle(player, friend, enemy);

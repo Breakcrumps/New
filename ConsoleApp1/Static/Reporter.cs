@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using Char;
 using States;
 
@@ -72,6 +73,8 @@ public static class Reporter
   }
   public static void Clear()
   {
+    if (Debugger.IsAttached)
+      return;
     Console.Clear();
   }
   public static string Read() => Console.ReadLine()!.Trim();

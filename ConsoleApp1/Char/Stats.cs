@@ -2,12 +2,20 @@ using Static;
 
 namespace Char;
 
-public record Stats
+public record Stats()
 {
-  public required int Health
+  public int Strength { get; set => field = RangeTool.LimitFrom1To100(value); } = 1;
+  public int Magic { get; set => field = RangeTool.LimitFrom1To100(value); } = 1;
+  public int Endurance { get; set => field = RangeTool.LimitFrom1To100(value); } = 1;
+  public int Agility { get; set => field = RangeTool.LimitFrom1To100(value); } = 1;
+  public int Luck { get; set => field = RangeTool.LimitFrom1To100(value); } = 1;
+
+  public Stats(int strength, int magic, int endurance, int agility, int luck) : this()
   {
-    get;
-    set => field = RangeTool.LimitFrom1(value);
+    Strength = strength;
+    Magic = magic;
+    Endurance = endurance;
+    Agility = agility;
+    Luck = luck;
   }
-  public required float Agility { get; set; } = 1;
 }
