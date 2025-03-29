@@ -1,16 +1,11 @@
 namespace States;
 
-public class Team : IEquatable<Team>
+public class Team(string name) : IEquatable<Team>
 {
-  public string Name { get; }
+  public string Name => name;
 
-  public static Team GoodGuys => new("Heroes");
-  public static Team BadGuys => new("Enemies");
-
-  public Team(string name)
-  {
-    Name = name;
-  }
+  public static Team GoodGuys() => new("Heroes");
+  public static Team BadGuys() => new("Enemies");
 
   public bool Equals(Team? other)
   {

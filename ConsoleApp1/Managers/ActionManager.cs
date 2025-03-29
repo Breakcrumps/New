@@ -8,10 +8,7 @@ public class ActionManager
   public ITurnManager TurnManager { get; set; }
   public bool Shielding { get; set; }
 
-  public async Task ExecuteTurn(List<Character> ActiveCharacters)
-  {
-    await TurnManager.ExecuteTurn(_character, ActiveCharacters);
-  }
+  public async Task ExecuteTurn(List<Character> ActiveCharacters) => await TurnManager.ExecuteTurn(_character, ActiveCharacters);
 
   public ActionManager(Character character)
   {

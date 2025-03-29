@@ -3,29 +3,22 @@ using Equip;
 using Managers;
 using States;
 
-Character<PlayableTurnManager> player = new(new Stats(10, 12, 1_000, 10, 5))
+Character<PlayableTurnManager> player = new(new Stats(10, 2, 2, 2, 2))
 {
-  Name = "Ass",
-  Team = Team.GoodGuys,
-  BaseHealth = 10,
-  BaseDefence = 10
+  Name = "Makoto Yuuki",
+  Team = Team.GoodGuys(),
+  Weapon = Weapons.PhoenixAsh()
 };
-Character friend = new(new Stats(10, 12, 1, 10, 5))
+Character<PlayableTurnManager> friend = new(new Stats(1, 3, 2, 1, 3))
 {
-  Name = "Friend",
-  Team = Team.GoodGuys,
-  BaseHealth = 10,
-  BaseDefence = 10
-};
-Character enemy = new(new Stats(10, 12, 100, 10, 5))
-{
-  Name = "Arse",
-  Team = Team.BadGuys,
-  BaseHealth = 10,
-  BaseDefence = 10,
-  Weapon = Weapons.VenomousHunch()
+  Name = "Yukari Takeba",
+  Team = Team.GoodGuys()
 };
 
-BattleManager battleManager = new();
+Character enemyOne = new(new Stats(2, 2, 2, 2, 2))
+{
+  Name = "Roy",
+  Team = Team.BadGuys()
+};
 
-await battleManager.CommenceBattle(player, friend, enemy);
+await BattleManager.CommenceBattle(player, friend, enemyOne);

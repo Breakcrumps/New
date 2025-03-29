@@ -4,15 +4,15 @@ using States;
 
 namespace Managers;
 
-public class BattleManager
+public static class BattleManager
 {
-  public List<Character> ActiveCharacters
+  public static List<Character> ActiveCharacters
   {
     get;
     set => field = [.. value.OrderByDescending(node => node.Stats.Agility)];
   } = [];
 
-  public async Task CommenceBattle(params List<Character> combatants)
+  public static async Task CommenceBattle(params List<Character> combatants)
   {
     Reporter.Clear();
 
@@ -25,7 +25,7 @@ public class BattleManager
     EndBattle();
   }
   
-  private async Task ExecuteBattle()
+  private static async Task ExecuteBattle()
   {
     bool done = false;
 
@@ -34,7 +34,7 @@ public class BattleManager
       done = await ExecutePhase();
     }
   }
-  private async Task<bool> ExecutePhase()
+  private static async Task<bool> ExecutePhase()
   {
     foreach (var character in ActiveCharacters)
     {
@@ -42,27 +42,27 @@ public class BattleManager
       
       RemoveDead();
 
-      if (BattleIsOver)
+      if (IsBattleOver())
         return true;
     }
 
     return false;
   }
-  private void EndBattle()
+  private static void EndBattle()
   {
-    Reporter.ReportResults(Winner);
+    Reporter.ReportResults(DetermineWinner());
 
     ActiveCharacters = [];
   }
 
-  private void RemoveDead()
+  private static void RemoveDead()
   {
     ReportTerminations();
     ActiveCharacters.RemoveAll(c => c.Health == 0);
   }
-  private void ReportTerminations()
+  private static void ReportTerminations()
   {
-    foreach (Character character in ActiveCharacters)
+    foreach (var character in ActiveCharacters)
     {
       if (character.Health == 0)
       {
@@ -71,9 +71,9 @@ public class BattleManager
     }
   }
 
-  private bool BattleIsOver => GoodGuysCount == 0 || BadGuysCount == 0;
+  private static bool IsBattleOver() => CountGoodGuys() == 0 || CountBadGuys() == 0;
   
-  private int GoodGuysCount => ActiveCharacters.Count(c => c.Team == Team.GoodGuys);
-  private int BadGuysCount => ActiveCharacters.Count(c => c.Team == Team.BadGuys);
-  private Team Winner => GoodGuysCount > 0 ? Team.GoodGuys : Team.BadGuys;
+  private static int CountGoodGuys() => ActiveCharacters.Count(c => c.Team == Team.GoodGuys());
+  private static int CountBadGuys() => ActiveCharacters.Count(c => c.Team == Team.BadGuys());
+  private static Team DetermineWinner() => CountGoodGuys() > 0 ? Team.GoodGuys() : Team.BadGuys();
 }
