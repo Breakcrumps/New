@@ -22,8 +22,6 @@ public class Character : IEquatable<Character>
   public async Task Attack(Character enemy) => await Weapon.Attack(this, enemy);
 
   private int ComputeMaxHealth() => (int)Math.Round(3.3 * Stats.Endurance + 10);
-  public int ComputeDefence() => (int)Math.Round(-52 * Math.Cos(.017 * Stats.Endurance) + 52);
-  public int ComputePower() => (int)Math.Round(-35 * Math.Cos((.02 * Stats.Strength) + (Math.PI / 6)) + 30.31);
 
   public override bool Equals(object? obj) => Equals(obj as Character);
   public bool Equals(Character? other) => Name == other!.Name;

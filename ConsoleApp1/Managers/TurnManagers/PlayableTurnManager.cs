@@ -28,7 +28,7 @@ public readonly struct PlayableTurnManager : ITurnManager
       if (directive == "Shield")
       {
         Reporter.Clear();
-        caller.ActionManager.Shielding = true;
+        caller.ActionManager.Blocking = true;
         done = true;
       }
       if (directive == "Wait")
@@ -99,6 +99,6 @@ public readonly struct PlayableTurnManager : ITurnManager
 
   private void UpdateStates(Character caller)
   {
-    caller.ActionManager.Shielding = false;
+    caller.ActionManager.Blocking = false;
   }
 }

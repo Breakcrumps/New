@@ -3,11 +3,11 @@ using Equip;
 using Managers;
 using States;
 
-Character<PlayableTurnManager> player = new(new Stats(10, 2, 2, 2, 2))
+Character<PlayableTurnManager> player = new(new Stats(20, 2, 2, 2, 2))
 {
   Name = "Makoto Yuuki",
   Team = Team.GoodGuys(),
-  Weapon = Weapons.PhoenixAsh()
+  Weapon = Weapons.SturdyBlade()
 };
 Character<PlayableTurnManager> friend = new(new Stats(1, 3, 2, 1, 3))
 {
@@ -15,7 +15,7 @@ Character<PlayableTurnManager> friend = new(new Stats(1, 3, 2, 1, 3))
   Team = Team.GoodGuys()
 };
 
-Character enemyOne = new(new Stats(2, 2, 2, 2, 2))
+Character enemyOne = new(new Stats(2, 2, 20, 2, 2))
 {
   Name = "Roy",
   Team = Team.BadGuys()

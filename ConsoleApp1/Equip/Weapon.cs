@@ -20,10 +20,8 @@ public class Weapon
   {
     float damage = (
       Damage
-      * StrengthMultiplier(attacker)
-      * ArmourMultiplier(enemy)
+      * (1 + (float)attacker.Stats.Strength / 25 - (float)enemy.Stats.Endurance / 75 - (float)enemy.Armour.ArmourValue / 100)
       * BlockingMultiplier(enemy)
-      * EnduranceMultiplier(enemy)
     );
     int damageRounded = (int)Math.Round(damage);
     
@@ -34,8 +32,5 @@ public class Weapon
     subject.Health -= damage;
   }
 
-  private float StrengthMultiplier(Character attacker) => 1 + ((float)attacker.ComputePower() / 100);
-  private float ArmourMultiplier(Character subject) => 1 - ((float)subject.Armour.ArmourValue / 100);
-  private float BlockingMultiplier(Character subject) => subject.ActionManager.Shielding ? .5f : 1;
-  private float EnduranceMultiplier(Character subject) => 1 - ((float)subject.ComputeDefence() / 100);
+  private float BlockingMultiplier(Character subject) => subject.ActionManager.Blocking ? 0.5f : 1f;
 }
